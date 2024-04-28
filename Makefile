@@ -45,31 +45,33 @@ LIBSRC = libft/ft_memset.c\
 		libft/ft_putstr_fd.c\
 		libft/ft_putendl_fd.c\
 		libft/ft_putnbr_fd.c\
-		libft/ft_striteri.c
+		libft/ft_striteri.c\
+		libft/ft_lstadd_back.c\
+		libft/ft_lstadd_front.c\
+		libft/ft_lstclear.c\
+		libft/ft_lstdelone.c\
+		libft/ft_lstiter.c\
+		libft/ft_lstlast.c\
+		libft/ft_lstmap.c\
+		libft/ft_lstnew.c\
+		libft/ft_lstsize.c
 OBJ = $(SRC:%.c=%.o)
+LIBOBJ = $(LIBSRC:%.c=%.o)
 LIBFTDIR = libft
-LIBFTOBJ = $(LIBSRC:%.c=%.o)
 NAME = libftprintf.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFTOBJ) $(OBJ)
-	ar rcs $(NAME) $(OBJ) $(LIBFTOBJ)
-
-$(LIBFTOBJ):$(LIBSRC)
-	make -C $(LIBFTDIR)
-	make -C $(LIBFTDIR) bonus
-
-%.o: %.c
-	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
+$(NAME): $(LIBOBJ) $(OBJ)
+	make -C libft bonus
+	ar rcs $(NAME) $(OBJ) $(LIBOBJ)
 
 clean:
 	rm -f $(OBJ)
-	make -C $(LIBFTDIR) clean
+	make -C $(LIBFTDIR) fclean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFTDIR) fclean
 
 re: fclean all
 
